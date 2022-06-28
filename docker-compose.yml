@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  web:
+    image: nginx:stable
+    container_name: demo-canvas
+    restart: unless-stopped
+    volumes:
+      - $PWD:/usr/share/nginx/html
+    ports:
+      - "1236:80"

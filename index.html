@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <title>mytitle</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/modern-normalize@1.1.0/modern-normalize.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Demo</h1>
+    <canvas id="canvas" width="1280" height="500"
+      >Sorry, your browser don't support canvas tag yet.</canvas
+    >
+    <img src="./hitanshu-patel-gayf-TBCv30-unsplash.jpg" alt="hitanshu-patel-gayf-TBCv30-unsplash">
+    <script>
+      const drawing = document.getElementById('canvas');
+
+      if (drawing.getContext) {
+        const context = drawing.getContext('2d');
+
+        // fill/stroke
+        context.strokeStyle = 'red'; // "rgba(0, 0, 255, 0.5)"
+        context.fillStyle = '#00f';
+
+        // rectangle
+        context.fillRect(10, 10, 50, 50);
+        context.strokeRect(30, 30, 50, 50);
+        context.clearRect(20, 20, 50, 50)
+
+        // path
+        context.beginPath()
+        context.arc(100, 100, 99, 0, 2 * Math.PI, false)
+        context.moveTo(194, 100)
+        context.arc(100, 100, 94, 0, 2 * Math.PI, false)
+        context.translate(100, 100)
+        // context.rotate(1)
+        context.moveTo(0, 0)
+        context.lineTo(0, -85)
+        context.moveTo(0, 0)
+        context.lineTo(-65, 0)
+        context.stroke()
+
+        // text
+        context.font = 'bold 14px Arial'
+        context.textAlign = 'center'
+        context.textBaseline = 'middle'
+        context.fillText('12', 0, -85)
+
+        context.strokeStyle = '#0f0'
+        context.save()
+
+        context.fillText('11', -30, -85)
+
+        context.fillStyle = '#ff0'
+        context.strokeStyle = '#ff0'
+        context.fillText('11', 30, -85)
+        context.restore()
+        
+        context.beginPath()
+        context.arc(0, 0, 45, 0, 2 * Math.PI, false)
+        context.stroke()
+
+        // draw image
+        let draw_image = document.images[0]
+        context.drawImage(draw_image, 0, 0, 627, 556, 0, 0, 456, 300)
+
+        // shadow
+        context.shadowOffsetX = 5
+        context.shadowOffsetY = 5
+        context.shadowBlur = 4
+        context.shadowColor = 'rgba(0, 0, 0, 0.5)'
+        context.fillStyle = '#f2a'
+        context.fillRect(100, -100, 45, 45)
+        // get image
+        let imgURI = drawing.toDataURL('image/png');
+        let image = document.createElement('img');
+        image.src = imgURI;
+        document.body.appendChild(image);
+
+        // gradient
+        const gradient = createRectLinearGradient(context, 500, -50, 50, 50)
+        gradient.addColorStop(0, "white")
+        gradient.addColorStop(1, "black")
+        context.fillStyle = gradient
+        context.fillRect(500, -50, 50, 50)
+
+        function createRectLinearGradient(context, x, y, width, height) {
+          return context.createLinearGradient(x, y, x + width, y + height)
+        }
+
+        const gradient2 = context.createRadialGradient(525, 125, 16, 525, 125, 40)
+        gradient2.addColorStop(0, "white")
+        gradient2.addColorStop(1, "black")
+        context.fillStyle = gradient2
+        context.fillRect(500, 100, 50, 50)
+
+        // pattern
+        pattern = context.createPattern(image, "repeat")
+        context.fillStyle = pattern
+        context.fillRect(50, 200, 1000, 1000)
+      }
+    </script>
+  </body>
+</html>

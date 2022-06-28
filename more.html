@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>mytitle</title>
+        <meta name="description" content="" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize@1.1.0/modern-normalize.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+      <canvas id="canvas" width="10000" height="5000">Sorry, your browser doesn't support canvas element</canvas>
+      <img src="./hitanshu-patel-gayf-TBCv30-unsplash.jpg" alt="hitanshu-patel-gayf-TBCv30-unsplash">
+      <script>
+        const drawing = document.getElementById("canvas")
+        if (drawing.getContext) {
+          let context = drawing.getContext("2d"),
+            image = document.images[0],
+            imageData, data,
+            i, len, average,
+            red, green, blue, alpha
+          context.drawImage(image, 0, 0)
+          imageData = context.getImageData(0, 0, image.width, image.height)
+          data = imageData.data
+          for (i=0, len = data.length; i < len; i += 4) {
+            red = data[i]
+            green = data[i+1]
+            blue = data[i+2]
+            alpha = data[i+3]
+
+            average = Math.floor((red + green + blue) / 3)
+
+            data[i] = average
+            data[i+1] = average
+            data[i+2] = average
+          }
+          imageData.data = data
+          context.putImageData(imageData, 0, 0)
+
+          // composition
+          context.globalCompositeOpeartion = "source-in"
+          context.fillStyle = '#f00'
+          context.fillRect(600, 600, 80, 80)
+          //context.globalAlpha = 0.5
+          context.fillStyle = 'rgba(0, 0, 255, 1)'
+          context.fillRect(620, 620, 80, 80)
+          //context.globalAlpha = 0
+          
+        }
+      </script>
+    </body>
+</html>
